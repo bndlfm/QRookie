@@ -68,6 +68,21 @@ Kirigami.Card {
             progress_bar.indeterminate = false;
             status_label.color = "red";
             status_label.text = qsTr("DecompressionError");
+        } else if (status === VrpManager.UpdatableRemotely) {
+            delete_button.enabled = true;
+            progress_bar.indeterminate = false;
+            status_label.color = Kirigami.Theme.textColor;
+            status_label.text = qsTr("Update Available (Remote)");
+        } else if (status === VrpManager.InstalledAndRemotely) {
+            delete_button.enabled = true;
+            progress_bar.indeterminate = false;
+            status_label.color = Kirigami.Theme.textColor;
+            status_label.text = qsTr("Installed (Remote)");
+        } else if (status === VrpManager.Downloadable) {
+            delete_button.enabled = true;
+            progress_bar.indeterminate = false;
+            status_label.color = Kirigami.Theme.textColor;
+            status_label.text = qsTr("Downloadable");
         } else {
             delete_button.enabled = false;
             progress_bar.indeterminate = false;

@@ -60,6 +60,15 @@ Kirigami.Card {
             install_button.enabled = true;
             install_button.icon.name = "error";
             break;
+        case VrpManager.UpdatableRemotely:
+            install_button.text = qsTr("Update Available (Remote)");
+            break;
+        case VrpManager.InstalledAndRemotely:
+            install_button.text = qsTr("Installed (Remote)");
+            break;
+        case VrpManager.Downloadable:
+            install_button.text = qsTr("Not Downloaded");
+            break;
         default:
             install_button.text = qsTr("Unknown Status");
             break;
