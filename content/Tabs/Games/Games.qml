@@ -180,6 +180,31 @@ ColumnLayout {
                 ToolTip.visible: hovered
             }
 
+            RowLayout {
+                Kirigami.FormData.label: qsTr("VRP Public URL:")
+                Layout.fillWidth: true
+
+                TextField {
+                    id: vrp_public_url_setting
+                    Layout.fillWidth: true
+                    placeholderText: qsTr("Enter custom VRP Public URL")
+                    Component.onCompleted: {
+                        text = app.vrp.settings.vrpPublicUrl;
+                    }
+                    width: 300
+                    ToolTip.text: qsTr("Custom URL for vrp-public.json. Useful if the default link is dead.")
+                    ToolTip.visible: hovered
+                }
+
+                Button {
+                    text: qsTr("Apply")
+                    onClicked: {
+                        app.vrp.settings.vrpPublicUrl = vrp_public_url_setting.text;
+                        app.vrp.updateMetadataQml();
+                    }
+                }
+            }
+
             ComboBox {
                 id: theme_setting
 

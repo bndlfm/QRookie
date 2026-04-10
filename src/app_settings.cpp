@@ -30,12 +30,14 @@ AppSettings::AppSettings(QObject *parent)
     , rename_package_(false)
     , cache_path_(QStandardPaths::writableLocation(QStandardPaths::CacheLocation))
     , data_path_(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
-    , keystore_path_(QString())
-    , last_wireless_addr_(QString())
-    , theme_(QString())
-{
+    ,keystore_path_(QString())
+    ,last_wireless_addr_(QString())
+    ,theme_(QString())
+    ,vrp_public_url_("https://vrpirates.wiki/downloads/vrp-public.json")
+    {
     loadAppSettings();
-}
+    }
+
 
 AppSettings::~AppSettings()
 {
@@ -82,6 +84,8 @@ void AppSettings::loadAppSettings()
         theme_ = "Universal";
 #endif
     }
+
+    vrp_public_url_ = settings_->value("vrp_public_url", vrp_public_url_).toString();
 }
 
 void AppSettings::setAutoInstall(bool auto_install)
@@ -146,4 +150,11 @@ void AppSettings::setTheme(const QString &theme)
     theme_ = theme;
     settings_->setValue("theme", theme_);
     emit themeChanged(theme);
+}
+
+void AppSettings::setVrpPublicUrl(const QString &url)
+{
+    vrp_public_url_ = url;
+    settings_->setValue("vrp_public_url", vrp_public_url_);
+    emit vrpPublicUrlChanged(url);
 }

@@ -16,6 +16,7 @@
  */
 
 #include "vrp_public.h"
+#include "app_settings.h"
 
 #include <QCoroNetworkReply>
 #include <QCoroSignal>
@@ -34,15 +35,14 @@ VrpPublic::VrpPublic(QObject *parent)
 
 QCoro::Task<bool> VrpPublic::update()
 {
-    static const QVector<QString> urls = {"https://vrpirates.wiki/downloads/vrp-public.json"};
+    QString url = AppSettings::instance()->vrpPublicUrl();
+    if (url.isEmpty()) {
+        url = "https://vrpirates.wiki/downloads/vrp-public.json";
+    }
 
-    for (auto url : urls) {
-        qDebug() << "Downloading vrp-public.json from " << url;
-        auto [success, data] = co_await downloadJson(url);
-        if (!success) {
-            continue;
-        }
-
+    qDebug() << "Downloading vrp-public.json from " << url;
+    auto [success, data] = co_await downloadJson(url);
+    if (success) {
         auto [base_url, password] = parseJson(data);
         if (!base_url.isEmpty() && !password.isEmpty()) {
             base_url_ = base_url;

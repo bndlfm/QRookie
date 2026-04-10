@@ -32,6 +32,7 @@ class AppSettings : public QObject
     Q_PROPERTY(QString dataPath READ dataPath WRITE setDataPath NOTIFY dataPathChanged)
     Q_PROPERTY(QString lastWirelessAddr READ lastWirelessAddr WRITE setLastWirelessAddr NOTIFY lastWirelessAddrChanged)
     Q_PROPERTY(QString theme READ theme WRITE setTheme NOTIFY themeChanged)
+    Q_PROPERTY(QString vrpPublicUrl READ vrpPublicUrl WRITE setVrpPublicUrl NOTIFY vrpPublicUrlChanged)
 
 public:
     explicit AppSettings(QObject *parent = nullptr);
@@ -88,6 +89,12 @@ public:
     }
     void setTheme(const QString &theme);
 
+    QString vrpPublicUrl() const
+    {
+        return vrp_public_url_;
+    }
+    void setVrpPublicUrl(const QString &url);
+
 signals:
     void autoInstallChanged(bool auto_install);
     void autoCleanCacheChanged(bool auto_clean_cache);
@@ -97,6 +104,7 @@ signals:
     void keyStorePathChanged(QString keystore_path);
     void lastWirelessAddrChanged(QString addr);
     void themeChanged(QString theme);
+    void vrpPublicUrlChanged(QString url);
 
 private:
     void loadAppSettings();
@@ -110,6 +118,7 @@ private:
     QString keystore_path_;
     QString last_wireless_addr_;
     QString theme_;
+    QString vrp_public_url_;
 };
 
 #endif /* QROOKIE_APP_SETTINGS */
